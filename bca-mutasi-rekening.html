@@ -1,0 +1,694 @@
+
+
+
+
+
+
+
+<HTML>
+<head>
+<link type="text/css" rel="stylesheet" href="../css/ibank.css">
+<style type="text/css">
+<!--
+.small{FONT-FAMILY: Arial, Helvetica, sans-serif;
+       FONT-SIZE: 3pt;
+       FONT-STYLE: normal
+}
+.aktif{COLOR: blue;
+       FONT-SIZE: 9pt;
+       FONT-FAMILY: Arial, Helvetica, sans-serif;
+       FONT-STYLE: normal
+}
+A:active{ COLOR: yellow; }
+A:hover{ COLOR: yellow; }
+A:link {TEXT-DECORATION: none}
+A:visited {text-decoration: none; }
+-->
+</style>
+</head>
+<script>
+var timerID = null;
+var timerRunning = false;
+var months=new Array(13);
+months[1]="Jan";
+months[2]="Feb";
+months[3]="Mar";
+months[4]="Apr";
+months[5]="May";
+months[6]="Jun";
+months[7]="Jul";
+months[8]="Aug";
+months[9]="Sep";
+months[10]="Oct";
+months[11]="Nov";
+months[12]="Dec";
+function stopclock(){
+  if(timerRunning)
+    clearTimeout(timerID);
+    timerRunning=false;
+}
+function startclock() {
+   xnow = new Date('Mar 14, 2016 13:41:58');
+   stopclock();
+   showtime();
+}
+function showtime() {
+   xnow.setSeconds(xnow.getSeconds()+1);
+   var lmonth=(((xnow.getMonth()+1) < 10) ? "0" : "") + (xnow.getMonth()+1);
+   var date=((xnow.getDate() < 10) ? "0" : "") + xnow.getDate();
+   var year=xnow.getYear();
+   if (year<2000) year=year+1900
+   var hour=((xnow.getHours() < 10) ? "0" : "") + xnow.getHours();
+   var min=((xnow.getMinutes() < 10) ? "0" : "") + xnow.getMinutes();
+   var sec=((xnow.getSeconds() < 10) ? "0" : "") + xnow.getSeconds();
+   DateTime.innerHTML = "Tanggal : " + date + "/" + lmonth + "/" + year + "           Jam : " + hour + ":" + min + ":" + sec;
+   timerID = setTimeout("showtime()",900);
+   timerRunning = true;
+}
+var ms = 0;
+function fncSetTimer() {
+	ms = 0;
+	then = new Date();
+	then.setTime(then.getTime() - ms);
+}
+function fncTimer() {
+	  setTimeout("fncTimer();", 10000);
+	  ynow = new Date();
+	  ms = ynow.getTime() - then.getTime();
+	  if (ms>=480000) {
+	     fncSetTimer();
+	     fncLogoff();
+	  }
+	window.status=parseInt(ms/1000) + " seconds idle";
+}
+function fncLogoff() {
+	document.iBankForm.action = "../sessionexpired.htm";
+	document.iBankForm.submit();
+}
+</script>
+<body alink="white" link="white" vlink="white" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="#ffffff" onload="startclock();fncSetTimer();fncTimer();" >
+<table border="0" cellpadding="0" cellspacing="0" width="590">
+   <tr height="20" bgcolor="#e7d300">
+      <td bgcolor="#e7d300" width="393" >
+         <font face="Verdana" size="2" color="#0000bb">&nbsp;
+            <font id="DateTime" face="verdana" color="#0000bb" size="1"></font>
+         </font>
+      </td>
+      <td width="25" bgcolor="#4a55b5"><img src="https://ibank.klikbca.com/images/latar1b.jpg;bca7548e41af5f81936"></td>
+      <td width="100" bgcolor="#4a55b5" align="center" class="aktif"></td>
+   </tr>
+   <tr bgcolor="#4A55B5" height="2"><td colspan="3"></td></tr>
+</table>
+
+<table border="0" cellpadding="1" cellspacing="0" width="590">
+   <tr height="20">
+      <td colspan ="3" bgcolor="#8486de">
+         <font size="2" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular" color="white">&nbsp;INFORMASI REKENING - MUTASI REKENING</font>
+      </td>
+   </tr>
+   <tr>
+      <td bgcolor="#FFFFFF" colspan=3></td></tr><tr><td bgcolor="#FFFFFF" colspan=3></td>
+   </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="590">
+
+<form name="iBankForm" method="POST" action="/accountstmt.do">
+   <tr>
+      <td width="50%" bgcolor="#f0f0f0">
+         <div align="left">
+            <font face="Verdana" size="2" color="#0000bb"><b>Nomor Rekening</b></font>
+         </div>
+      </td>
+      <td width="50%" bgcolor="#f0f0f0">
+         <div align="left">
+            <font face="Verdana" size="2" color="#0000bb"><b>
+           <select size="1" name="value(D1)" id="D1">
+             <option value="0">8690641357</option>
+           </select>
+</b></font>
+         </div>
+      </td>
+   </tr>
+   <tr>
+      <td bgcolor="" colspan="1">&nbsp</td>
+   </tr>
+   <tr>
+      <td width="50%" bgcolor="#f0f0f0">
+         <div align="left">
+            <font face="Verdana" size="2" color="#0000bb"><b>Periode Mutasi Rekening</b></font>
+         </div>
+      </td>
+      <td width="50%" bgcolor="#f0f0f0">
+         <div align="">
+            <font face="Verdana" size="2" color="#0000bb"><b></b></font>
+         </div>
+      </td>
+   </tr>
+   <tr>
+      <td bgcolor="" colspan="1">&nbsp</td>
+   </tr>
+
+<tr><td colspan=3 align='left'>
+<table width='100%'>
+<tr><td align='left'><input type="radio" name="value(r1)" id="r1" value="1" onClick="r11()" checked>Mutasi Harian </td><td colspan=2 align='left'><select size="1" name="value(startDt)" id="startDt">
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14" selected>14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+</select>
+<select size="1" name="value(startMt)" id="startMt">
+<option value="1">Januari</option>
+<option value="2">Februari</option>
+<option selected value="3">Maret</option>
+<option value="4">April</option>
+<option value="5">Mei</option>
+<option value="6">Juni</option>
+<option value="7">Juli</option>
+<option value="8">Agustus</option>
+<option value="9">September</option>
+<option value="10">Oktober</option>
+<option value="11">Nopember</option>
+<option value="12">Desember</option>
+</select>
+<select size="1" name="value(startYr)" id="startYr">
+              <option value="2016" selected>2016</option>
+</select>
+&nbsp;-&nbsp;<select size="1" name="value(endDt)" id="endDt">
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14" selected>14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+</select>
+<select size="1" name="value(endMt)" id="endMt">
+<option value="1">Januari</option>
+<option value="2">Februari</option>
+<option selected value="3">Maret</option>
+<option value="4">April</option>
+<option value="5">Mei</option>
+<option value="6">Juni</option>
+<option value="7">Juli</option>
+<option value="8">Agustus</option>
+<option value="9">September</option>
+<option value="10">Oktober</option>
+<option value="11">Nopember</option>
+<option value="12">Desember</option>
+</select>
+<select size="1" name="value(endYr)" id="endYr">
+              <option value="2016" selected>2016</option>
+</select>
+</td></tr>
+
+<tr><td align=left>
+	<input type="radio" name="value(r1)" id="r1" value="2" onclick="r13();">Mutasi Bulanan 
+	</td>
+	<td colspan=2 align='left'>
+	<select size="1" name="value(x)" id="x" onchange="r12()">
+	<!--<select size="1" name="value(x)" id="x">-->
+		<option value="0" selected>
+		<option value="1">Februari</option>
+		<option value="2">Januari</option>
+	</select>
+	<input type="hidden" name="value(fDt)" id="fDt" value="">
+	<input type="hidden" name="value(tDt)" id="tDt" value="">
+</td></tr>
+</table>
+</td></tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="590" bordercolor="#ffffff">
+<tr height="25">
+  <td valign="top">
+    <span align="left">
+      <font size="1" face="Verdana" color="#f00000"><br><b> Catatan :</b><br> * Mutasi harian maksimum 31 hari yang lalu.<br>* Mutasi bulanan menampilkan mutasi 1 bulan lalu dan 2 bulan lalu<br><br>&nbsp;</font>
+    </span>
+  </td>
+</tr>
+<tr height="2">
+<td align="right">
+<INPUT type="submit" name="value(submit1)" value="Lihat Mutasi Rekening" onclick="return inquiry();" onDblClick="fncDoubleOut();">&nbsp;&nbsp;
+<INPUT type="submit" name="value(submit2)" value="Download Mutasi" onclick="return download();" onDblClick="fncDoubleOut();">
+</td></tr>
+<tr><td colspan="3" ><hr color="#8486ce"></td></tr>
+</table>
+<script language ="javascript">
+function fncDoubleOut(){
+    alert('Transaksi Anda sedang di proses. Terima kasih');
+    return false;
+}
+</script>
+
+</form>
+</body>
+<script language="javascript" type="">
+document.iBankForm.x.disabled=true;
+//r12();
+function r13(){
+	//alert('r13');
+	document.iBankForm.x.disabled=false;
+	document.iBankForm.x.selectedIndex=1;
+	document.iBankForm.startDt.disabled=true;
+	document.iBankForm.endDt.disabled=true;
+	document.iBankForm.startMt.disabled=true;
+	document.iBankForm.endMt.disabled=true;
+	document.iBankForm.startYr.disabled=true;
+	document.iBankForm.endYr.disabled=true;
+	//var myDate = new Date(2006,7,22);
+	var myDate = new Date();
+	document.iBankForm.startDt.selectedIndex=0;
+	var bulan,idxtgl;
+	//Get Month & Year
+	if(myDate.getMonth()==0){ //Cek pada saat bulan Januari
+		//alert(1);
+		document.iBankForm.startMt.selectedIndex=11;
+		document.iBankForm.endMt.selectedIndex=11;
+		bulan=11;
+		document.iBankForm.startYr.value=myDate.getYear()-1;
+		document.iBankForm.endYr.value=myDate.getYear()-1;
+	}else{
+		//alert(3);
+		document.iBankForm.startMt.selectedIndex=myDate.getMonth()-1;
+		document.iBankForm.endMt.selectedIndex=myDate.getMonth()-1;
+		bulan = myDate.getMonth()-1;
+		document.iBankForm.startYr.value=myDate.getYear();
+		document.iBankForm.endYr.value=myDate.getYear();
+	}
+	document.iBankForm.fDt.value='01'+'00'.substring(document.iBankForm.startMt.value.length)+document.iBankForm.startMt.value+document.iBankForm.startYr.value;
+	//Get End Date
+	if((bulan==0)||(bulan==2)||(bulan==4)||(bulan==6)||(bulan==7)||(bulan==9)||(bulan==11))
+		{
+		document.iBankForm.tDt.value='31'+'00'.substring(document.iBankForm.endMt.value.length)+document.iBankForm.endMt.value+document.iBankForm.endYr.value;
+		idxtgl=30;
+		}
+	if((bulan==3)||(bulan==5)||(bulan==8)||(bulan==10))
+		{
+		document.iBankForm.tDt.value='30'+'00'.substring(document.iBankForm.endMt.value.length)+document.iBankForm.endMt.value+document.iBankForm.endYr.value;
+		idxtgl=29;
+		}
+	if(bulan==1){
+		if (myDate.getYear()%4==0)
+		{
+			document.iBankForm.tDt.value='29'+'00'.substring(document.iBankForm.endMt.value.length)+document.iBankForm.endMt.value+document.iBankForm.endYr.value;
+			idxtgl=28;
+		}
+		else
+		{
+			document.iBankForm.tDt.value='28'+'00'.substring(document.iBankForm.endMt.value.length)+document.iBankForm.endMt.value+document.iBankForm.endYr.value;
+			idxtgl=27;
+		}
+	}
+	document.iBankForm.endDt.selectedIndex=idxtgl;
+	//document.iBankForm.fDt.value='01012011';
+	//document.iBankForm.tDt.value='00'.substring(myDate.getDate().length)+myDate.getDate()-1+'012011';
+	//document.iBankForm.fDt.value='01092006';
+	//document.iBankForm.tDt.value='27092006';
+	//alert(document.iBankForm.startMt[document.iBankForm.startMt.selectedIndex].text+' To '+document.iBankForm.startMt[document.iBankForm.startMt.selectedIndex].text);
+	//alert(document.iBankForm.fDt.value+' | '+document.iBankForm.tDt.value);
+}
+function r11(){
+	//alert('r11');
+	document.iBankForm.x.selectedIndex=0;
+	document.iBankForm.x.disabled=true;
+	var myDate = new Date();
+	document.iBankForm.startDt.selectedIndex=myDate.getDate()-1;
+	document.iBankForm.startMt.selectedIndex=myDate.getMonth();
+	document.iBankForm.endDt.selectedIndex=document.iBankForm.startDt.selectedIndex;
+	document.iBankForm.endMt.selectedIndex=document.iBankForm.startMt.selectedIndex;
+	document.iBankForm.startDt.disabled=false;
+	document.iBankForm.endDt.disabled=false;
+	document.iBankForm.startMt.disabled=false;
+	document.iBankForm.endMt.disabled=false;
+	document.iBankForm.startYr.disabled=false;
+	document.iBankForm.endYr.disabled=false;
+}
+function r12(){
+	//alert('r12');
+	document.iBankForm.r1[0].checked=false;
+	document.iBankForm.r1[1].checked=true;
+	//document.iBankForm.startDt.value='01';
+	//document.iBankForm.endDt.value='01';
+
+	var myDate = new Date();
+	var bulan,idxtgl;
+	if (document.iBankForm.x.selectedIndex==0){
+		r11();
+		document.iBankForm.r1[0].checked=true;
+		document.iBankForm.x.disabled=true;
+		return false
+	}
+
+	if (document.iBankForm.x.selectedIndex==1){
+		//alert('index 1');
+		if (myDate.getMonth()-1<0){ //Cek utk pd Januari
+			document.iBankForm.startMt.selectedIndex=11;
+			document.iBankForm.endMt.selectedIndex=11;
+			bulan=11;
+			document.iBankForm.startYr.value=myDate.getYear()-1;
+			document.iBankForm.endYr.value=myDate.getYear()-1;
+		}else{
+			document.iBankForm.startMt.selectedIndex=myDate.getMonth()-1;
+			document.iBankForm.endMt.selectedIndex=myDate.getMonth()-1;
+			bulan=myDate.getMonth()-1;
+			document.iBankForm.startYr.value=myDate.getYear();
+			document.iBankForm.endYr.value=myDate.getYear();
+		}
+		//document.iBankForm.fDt.value='01'+'00'.substring(document.iBankForm.startMt.value.length)+document.iBankForm.startMt.value+document.iBankForm.startYr.value;
+		//document.iBankForm.tDt.value='01'+'00'.substring(document.iBankForm.endMt.value.length)+document.iBankForm.endMt.value+document.iBankForm.endYr.value;
+		//document.iBankForm.fDt.value='01122006';
+		//document.iBankForm.tDt.value='01012007';
+	}else{
+		if (myDate.getMonth()-2<-1){ // Cek pada saat bulan Januari
+			//alert('index 2');
+			document.iBankForm.startMt.selectedIndex=10;
+			document.iBankForm.endMt.selectedIndex=10;
+			bulan=10;
+			document.iBankForm.startYr.value=myDate.getYear()-1;
+			document.iBankForm.endYr.value=myDate.getYear()-1;
+		}else{
+			if (myDate.getMonth()-2<0){ // Cek pada saat bulan Februari
+				//alert('index 3');
+				document.iBankForm.startMt.selectedIndex=11;
+				document.iBankForm.endMt.selectedIndex=11;
+				bulan=11;
+				document.iBankForm.startYr.value=myDate.getYear()-1;
+				document.iBankForm.endYr.value=myDate.getYear()-1;
+			}else{
+				//alert('index 4');
+				document.iBankForm.startMt.selectedIndex=myDate.getMonth()-2;
+				document.iBankForm.endMt.selectedIndex=myDate.getMonth()-2;
+				bulan=myDate.getMonth()-2;
+				document.iBankForm.startYr.value=myDate.getYear();
+				document.iBankForm.endYr.value=myDate.getYear();
+			}
+		}
+		//document.iBankForm.fDt.value='01'+'00'.substring(document.iBankForm.startMt.value.length)+document.iBankForm.startMt.value+document.iBankForm.startYr.value;
+		//document.iBankForm.tDt.value='01'+'00'.substring(document.iBankForm.endMt.value.length)+document.iBankForm.endMt.value+document.iBankForm.endYr.value;
+		//document.iBankForm.fDt.value='01092006';
+		//document.iBankForm.tDt.value='27092006';
+		//alert(document.iBankForm.fDt.value+' | '+document.iBankForm.tDt.value);
+	}
+	document.iBankForm.fDt.value='01'+'00'.substring(document.iBankForm.startMt.value.length)+document.iBankForm.startMt.value+document.iBankForm.startYr.value;
+	//Get End Date
+	if((bulan==0)||(bulan==2)||(bulan==4)||(bulan==6)||(bulan==7)||(bulan==9)||(bulan==11))
+		{
+		document.iBankForm.tDt.value='31'+'00'.substring(document.iBankForm.endMt.value.length)+document.iBankForm.endMt.value+document.iBankForm.endYr.value;
+		idxtgl=30;
+		}
+	if((bulan==3)||(bulan==5)||(bulan==8)||(bulan==10))
+		{
+		document.iBankForm.tDt.value='30'+'00'.substring(document.iBankForm.endMt.value.length)+document.iBankForm.endMt.value+document.iBankForm.endYr.value;
+		idxtgl=29;
+		}
+	if(bulan==1){
+		if (myDate.getYear()%4==0)
+		{
+			document.iBankForm.tDt.value='29'+'00'.substring(document.iBankForm.endMt.value.length)+document.iBankForm.endMt.value+document.iBankForm.endYr.value;
+			idxtgl=28;
+		}
+		else
+		{
+			document.iBankForm.tDt.value='28'+'00'.substring(document.iBankForm.endMt.value.length)+document.iBankForm.endMt.value+document.iBankForm.endYr.value;
+			idxtgl=27;
+		}
+	}
+	document.iBankForm.endDt.selectedIndex=idxtgl;
+	//document.iBankForm.fDt.value='01092006';
+	//document.iBankForm.tDt.value='27092006';
+	//alert(document.iBankForm.startMt[document.iBankForm.startMt.selectedIndex].text+' To '+document.iBankForm.endMt[document.iBankForm.endMt.selectedIndex].text);
+    //alert(document.iBankForm.fDt.value+'|'+document.iBankForm.tDt.value);
+	document.iBankForm.startDt.disabled=true;
+	document.iBankForm.endDt.disabled=true;
+	document.iBankForm.startMt.disabled=true;
+	document.iBankForm.endMt.disabled=true;
+	document.iBankForm.startYr.disabled=true;
+	document.iBankForm.endYr.disabled=true;
+}
+function formValidation() {
+  //==========
+  var startMtDt = document.iBankForm.startDt.options[document.iBankForm.startDt.selectedIndex].value;
+  var startMtMonth = eval(document.iBankForm.startMt.options[document.iBankForm.startMt.selectedIndex].value);
+  var StYear = eval(document.iBankForm.startYr.options[document.iBankForm.startYr.selectedIndex].value);
+  var endMtDt = eval(document.iBankForm.endDt.options[document.iBankForm.endDt.selectedIndex].value);
+  var endMtMonth = eval(document.iBankForm.endMt.options[document.iBankForm.endMt.selectedIndex].value);
+  var EdYear = eval(document.iBankForm.endYr.options[document.iBankForm.endYr.selectedIndex].value);
+	//alert (startMtDt+'|'+startMtMonth+'|'+StYear+'||'+endMtDt+'|'+endMtMonth+'|'+EdYear);
+  if ((EdYear%4) == 0){
+    if (endMtMonth==2 && document.iBankForm.endDt.value > 29){
+      var sErrMsgMIN= 'Pilihan tanggal salah';
+      alert(sErrMsgMIN);
+      document.iBankForm.endDt.focus();
+      return false;
+    }
+  }else	{
+    if (endMtMonth==2 && document.iBankForm.endDt.value > 28){
+      var sErrMsgMIN= 'Pilihan tanggal salah';
+      alert(sErrMsgMIN);
+      document.iBankForm.endDt.focus();
+      return false;
+    }
+  }
+
+  if ((StYear%4) == 0){
+    if (startMtMonth==2 && document.iBankForm.startDt.value > 29){
+      var sErrMsgMIN= 'Pilihan tanggal salah';
+      alert(sErrMsgMIN);
+      document.iBankForm.startDt.focus();
+      return false;
+    }
+  }else{
+    if (startMtMonth==2&& document.iBankForm.startDt.value > 28){
+      var sErrMsgMIN= 'Pilihan tanggal salah';
+      alert(sErrMsgMIN);
+      document.iBankForm.startDt.focus();
+      return false;
+    }
+  }
+
+  if ((endMtMonth==4 || endMtMonth==6 || endMtMonth==9 || endMtMonth==11)&& endMtDt > 30){
+    var sErrMsgMIN= 'Pilihan tanggal salah';
+    alert(sErrMsgMIN);
+    document.iBankForm.endDt.focus();
+    return false;
+  }
+  if ((startMtMonth==4 || startMtMonth==6 || startMtMonth==9 || startMtMonth==11)&& startMtDt > 30){
+    var sErrMsgMIN= 'Pilihan tanggal salah';
+    alert(sErrMsgMIN);
+    document.iBankForm.startDt.focus();
+    return false;
+  }
+  if (EdYear<StYear) {
+    var sErrMsgMIN= 'Pilihan tahun salah';
+    alert(sErrMsgMIN);
+    document.iBankForm.endYr.focus();
+    return false;
+  }
+
+  var StartDate = new Date(StYear,startMtMonth-1,startMtDt);
+  var EndDate = new Date(EdYear,endMtMonth-1,endMtDt);
+  var Now = new Date();
+  Now.setHours(0);
+  Now.setMinutes(0);
+  Now.setSeconds(0);
+  Now.setMilliseconds(0);
+
+  if (StartDate > EndDate) {
+    var sErrMsgMIN= 'Tanggal awal lebih besar dari tanggal akhir';
+    alert(sErrMsgMIN);
+    document.iBankForm.startDt.focus();
+    return false;
+  }
+
+if ((EndDate - StartDate) > 2678400000) {
+    var sErrMsgMIN= 'Mutasi rekening maksimal 31 hari yang lalu';
+    alert(sErrMsgMIN);
+    document.iBankForm.endMt.focus();
+    return false;
+  }
+ 
+ if ((Now - StartDate) > 2678400000) {
+    var sErrMsgMIN= 'Mutasi rekening maksimal 31 hari yang lalu';
+    alert(sErrMsgMIN);
+    document.iBankForm.endMt.focus();
+    return false;
+  }
+
+
+  var ToDay = Now - EndDate;
+  if (ToDay < 0)  {
+    var sErrMsgMIN= 'Tanggal akhir lebih besar dari tanggal hari ini';
+    alert(sErrMsgMIN);
+    document.iBankForm.endDt.focus();
+    return false;
+  }
+  return true;
+}
+
+var cancelcount=0;
+var submitcount=0;
+function checksubmit() {
+  if (submitcount == 0){
+    submitcount++;
+    cancelcount++;
+    return true;
+  }else {
+    var sErrMsgNull = 'Transaksi Anda sedang di proses. Terima kasih';
+    alert (sErrMsgNull);
+    return false;
+  }
+}
+
+function inquiry() {
+  if (document.iBankForm.x.selectedIndex==0){//Mutasi Harian
+	  if(!formValidation()){
+		return false;
+	  }else{
+		if (checksubmit()){
+		  document.iBankForm.action="/accountstmt.do?value(actions)=acctstmtview";
+		  document.iBankForm.target="_self";
+		  //Added by LTS 18-07-2011
+			//document.iBankForm.startDt.disabled=false;
+			//document.iBankForm.endDt.disabled=false;
+			//document.iBankForm.startMt.disabled=false;
+			//document.iBankForm.endMt.disabled=false;
+			//document.iBankForm.startYr.disabled=false;
+			//document.iBankForm.endYr.disabled=false;
+			//document.iBankForm.x.disabled=false;
+			//document.iBankForm.x.selectedIndex=0;
+		  return true;
+		}else{
+		  return false;
+		}
+	  }
+	}else{
+		if (checksubmit()){
+		  document.iBankForm.action="/accountstmt.do?value(actions)=acctstmtview";
+		  document.iBankForm.target="_self";
+		  //Added by LTS 18-07-2011
+			//document.iBankForm.startDt.disabled=false;
+			//document.iBankForm.endDt.disabled=false;
+			//document.iBankForm.startMt.disabled=false;
+			//document.iBankForm.endMt.disabled=false;
+			//document.iBankForm.startYr.disabled=false;
+			//document.iBankForm.endYr.disabled=false;
+			//document.iBankForm.x.disabled=false;
+		  return true;
+		}else{
+		  return false;
+		}
+	}
+}
+
+function download() {
+	if (document.iBankForm.x.selectedIndex==0){//Mutasi Harian
+	  if(!formValidation()){
+		return false;
+	  }else{
+		if (checksubmit()){
+		  document.iBankForm.action="/stmtdownload.do?value(actions)=account_statement";
+		  submitcount=0
+		  document.iBankForm.target="_parent";
+		  //Added by LTS 18-07-2011
+			//document.iBankForm.startDt.disabled=false;
+			//document.iBankForm.endDt.disabled=false;
+			//document.iBankForm.startMt.disabled=false;
+			//document.iBankForm.endMt.disabled=false;
+			//document.iBankForm.startYr.disabled=false;
+			//document.iBankForm.endYr.disabled=false;
+		  return true;
+		}else{
+		  return false;
+		}
+	  }
+	 }else{
+		if (checksubmit()){
+		  document.iBankForm.action="/stmtdownload.do?value(actions)=account_statement";
+		  submitcount=0
+		  document.iBankForm.target="_parent";
+		  //Added by LTS 18-07-2011
+			//document.iBankForm.startDt.disabled=false;
+			//document.iBankForm.endDt.disabled=false;
+			//document.iBankForm.startMt.disabled=false;
+			//document.iBankForm.endMt.disabled=false;
+			//document.iBankForm.startYr.disabled=false;
+			//document.iBankForm.endYr.disabled=false;
+		  return true;
+		}else{
+		  return false;
+		}
+	}
+}
+
+function checkcancel() {
+  if (cancelcount == 0){
+    cancelcount++;
+    return true;
+  }else {
+    var sErrMsgNull = 'Transaksi Anda sedang di proses. Terima kasih';
+    alert (sErrMsgNull);
+    return false;
+  }
+}
+
+function BackMain(){
+  if(checkcancel()){
+    document.iBankForm.action="../selecttransaction.jsp";
+    document.iBankForm.submit();
+  }else{
+    return false;
+  }
+}
+</script>
+</html>
